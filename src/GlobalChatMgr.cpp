@@ -527,18 +527,20 @@ std::string GlobalChatMgr::GetChatPrefix()
 
     if (!ChatName.empty())
     {
-        wstrToLower(ChatName);
+        std::wstring wChatName;
+        Utf8toWStr(ChatName, wChatName);
+        wstrToLower(wChatName);
         chatPrefix << "|Hchannel:";
         if (JoinChannel)
         {
-            chatPrefix << "c " << ChatName;
+            chatPrefix << "c " << wChatName;
         }
         else
         {
             chatPrefix << "s .global ";
         }
         chatPrefix << "|h|cff" << (ChatNameColor.empty() ? "FFFF00" : ChatNameColor);
-        chatPrefix << "[" << ChatName << "]|h";
+        chatPrefix << "[" << wChatName << "]|h";
     }
 
     return chatPrefix.str();
