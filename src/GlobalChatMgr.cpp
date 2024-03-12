@@ -31,7 +31,7 @@ GlobalChatMgr* GlobalChatMgr::instance()
     return &instance;
 }
 
-void strToLower(std::string& str) { std::transform(std::begin(str), std::end(str), std::begin(str), charToLower); }
+void GstrToLower(std::string& str) { std::transform(std::begin(str), std::end(str), std::begin(str), charToLower); }
 
 void GlobalChatMgr::LoadConfig(bool reload)
 {
@@ -530,7 +530,7 @@ std::string GlobalChatMgr::GetChatPrefix()
     if (!ChatName.empty())
     {
 
-        strToLower(ChatName);
+        GstrToLower(ChatName);
         chatPrefix << "|Hchannel:";
         if (JoinChannel)
         {
