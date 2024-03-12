@@ -18,6 +18,17 @@
 #include "ChannelMgr.h"
 #include "GlobalChatMgr.h"
 #include "ScriptMgr.h"
+#include <cctype>
+#include <iostream>
+
+std::string toLowerCase(const char* str) {
+    std::string result;
+    while (*str) {
+        result += static_cast<char>(std::tolower(static_cast<unsigned char>(*str)));
+        ++str;
+    }
+    return result;
+}
 
 
 class GlobalChat_Config : public WorldScript
@@ -67,7 +78,7 @@ public:
 
     void OnChat(Player* player, uint32 /*type*/, uint32 lang, std::string& msg, Channel* channel)
     {
-        if (sGlobalChatMgr->JoinChannel && !sGlobalChatMgr->ChatName.empty() && lang != LANG_ADDON && !strcmp(channel->GetName().c_str(), sGlobalChatMgr->ChatName.c_str()))
+        if (sGlobalChatMgr->JoinChannel && !sGlobalChatMgr->ChatName.empty() && lang != LANG_ADDON && !strcmp(toLowerCase(channel->GetName().c_str()).c_str(), toLowerCase(sGlobalChatMgr->ChatName.c_str()).c_str()))
         {
             if (sGlobalChatMgr->FactionSpecific && player->GetSession()->GetSecurity() > 0)
             {
