@@ -22,7 +22,7 @@
 #include "World.h"
 #include "GlobalChatMgr.h"
 #include "WorldSession.h"
-#include <iostream>
+
 
 DBCStorage<ChatProfanityEntry> sChatProfanityStore(ChatProfanityEntryfmt);
 
@@ -33,11 +33,13 @@ GlobalChatMgr* GlobalChatMgr::instance()
 }
 
 
+void GlobalChatstrToLower(std::string& str) { std::transform(std::begin(str), std::end(str), std::begin(str), charToLower); }
+
 void GlobalChatMgr::LoadConfig(bool reload)
 {
     GlobalChatEnabled = sConfigMgr->GetOption<bool>("GlobalChat.Enable", true);
     Announce = sConfigMgr->GetOption<bool>("GlobalChat.Announce", true);
-    ChatName = tolower(sConfigMgr->GetOption<std::string>("GlobalChat.Chat.Name", "Global"));
+    ChatName = GlobalChatstrToLower(sConfigMgr->GetOption<std::string>("GlobalChat.Chat.Name", "Global"));
     ChatNameColor = sConfigMgr->GetOption<std::string>("GlobalChat.Chat.NameColor", "FFFF00");
     ChatTextColor = sConfigMgr->GetOption<std::string>("GlobalChat.Chat.TextColor", "FFFFFF");
     PlayerColor = sConfigMgr->GetOption<uint32>("GlobalChat.Player.NameColor", 1);
