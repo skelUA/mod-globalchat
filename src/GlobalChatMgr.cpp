@@ -22,7 +22,6 @@
 #include "World.h"
 #include "GlobalChatMgr.h"
 #include "WorldSession.h"
-#include "Unit.h"
 
 DBCStorage<ChatProfanityEntry> sChatProfanityStore(ChatProfanityEntryfmt);
 
@@ -31,6 +30,8 @@ GlobalChatMgr* GlobalChatMgr::instance()
     static GlobalChatMgr instance;
     return &instance;
 }
+
+void strToLower(std::string& str) { std::transform(std::begin(str), std::end(str), std::begin(str), charToLower); }
 
 void GlobalChatMgr::LoadConfig(bool reload)
 {
@@ -131,6 +132,7 @@ void GlobalChatMgr::LoadConfig(bool reload)
         URLWhitelist.push_back(url);
     }
 }
+
 
 void GlobalChatMgr::LoadPlayerData(Player* player)
 {
@@ -931,4 +933,3 @@ void GlobalChatMgr::PlayerInfoCommand(ChatHandler* handler, Player* player)
     handler->PSendSysMessage("> Total Mutes: %s%u|r || Banned: %s", totalMutes > 0 ? "|cffFF0000" : "|cff4CFF00", totalMutes, isBanned ? "|cffFF0000Yes|r" : "|cff4CFF00No|r");
 }
 
-void strToLower(std::string& str) { std::transform(std::begin(str), std::end(str), std::begin(str), charToLower); }
