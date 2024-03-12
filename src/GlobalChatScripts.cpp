@@ -18,6 +18,7 @@
 #include "ChannelMgr.h"
 #include "GlobalChatMgr.h"
 #include "ScriptMgr.h"
+#include "Unit.h"
 
 class GlobalChat_Config : public WorldScript
 {
