@@ -49,6 +49,7 @@ public:
             {
                 if (sGlobalChatMgr->JoinChannel && !sGlobalChatMgr->ChatName.empty())
                 {
+                    wstrToLower(ChatName);
                     ChatHandler(player->GetSession()).PSendSysMessage("You can join the |cffFF0000GlobalChat|r by typing |cffFF0000.joinglobal|r or |cffFF0000/join %s|r at any time.", sGlobalChatMgr->ChatName.c_str());
                 }
                 else
@@ -68,6 +69,7 @@ public:
     {
         if (sGlobalChatMgr->JoinChannel && !sGlobalChatMgr->ChatName.empty() && lang != LANG_ADDON && !strcmp(channel->GetName().c_str(), sGlobalChatMgr->ChatName.c_str()))
         {
+            wstrToLower(ChatName);
             if (sGlobalChatMgr->FactionSpecific && player->GetSession()->GetSecurity() > 0)
             {
                 ChatHandler(player->GetSession()).PSendSysMessage("Please use |cff4CFF00.galliance|r or .|cff4CFF00ghorde|r for the GlobalChat as GM.");

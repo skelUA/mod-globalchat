@@ -523,8 +523,10 @@ std::string GlobalChatMgr::GetChatPrefix()
 {
     std::ostringstream chatPrefix;
 
+
     if (!ChatName.empty())
     {
+        wstrToLower(ChatName);
         chatPrefix << "|Hchannel:";
         if (JoinChannel)
         {
