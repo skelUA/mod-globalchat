@@ -930,3 +930,5 @@ void GlobalChatMgr::PlayerInfoCommand(ChatHandler* handler, Player* player)
     handler->PSendSysMessage("> Muted: %s || Mute Time: %s", isMuted ? "|cffFF0000Yes|r" : "|cff4CFF00No|r", isMuted ? ("|cffFF0000" + secsToTimeString(muteTime - GameTime::GetGameTime().count(), true) + "|r") : "|cff4CFF000s|r");
     handler->PSendSysMessage("> Total Mutes: %s%u|r || Banned: %s", totalMutes > 0 ? "|cffFF0000" : "|cff4CFF00", totalMutes, isBanned ? "|cffFF0000Yes|r" : "|cff4CFF00No|r");
 }
+
+void strToLower(std::string& str) { std::transform(std::begin(str), std::end(str), std::begin(str), charToLower); }
