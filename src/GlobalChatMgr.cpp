@@ -22,7 +22,7 @@
 #include "World.h"
 #include "GlobalChatMgr.h"
 #include "WorldSession.h"
-#include <cctype>
+#include <iostream>
 
 DBCStorage<ChatProfanityEntry> sChatProfanityStore(ChatProfanityEntryfmt);
 
