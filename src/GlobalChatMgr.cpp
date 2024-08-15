@@ -661,7 +661,7 @@ void GlobalChatMgr::SendToPlayers(std::string chatMessage, Player* player, TeamI
             if (FactionSpecific && teamId != TEAM_NEUTRAL && itr->second->GetSecurity() > 0)
             {
                 message = gmChatPrefix + " " + chatMessage;
-                sWorld->SendServerMessage(SERVER_MSG_STRING, message.c_str(), target);
+                ChatHandler(nullptr).SendServerMessage(SERVER_MSG_STRING, message.c_str(), target);
                 continue;
             }
 
@@ -672,7 +672,7 @@ void GlobalChatMgr::SendToPlayers(std::string chatMessage, Player* player, TeamI
             if (!FactionSpecific || teamId == TEAM_NEUTRAL || teamId == target->GetTeamId())
             {
                 message = chatPrefix + " " + chatMessage;
-                sWorld->SendServerMessage(SERVER_MSG_STRING, message.c_str(), target);
+                ChatHandler(nullptr).SendServerMessage(SERVER_MSG_STRING, message.c_str(), target);
             }
         }
     }
@@ -769,7 +769,7 @@ void GlobalChatMgr::SendGlobalChat(WorldSession* session, const char* message, T
         {
             if (ProfanityMute > 0)
             {
-                sWorld->SendGMText(LANG_FORBIDDEN_PHRASE_ANNOUNCE_GM, playerName, message); // send report to GMs
+                ChatHandler(nullptr).SendGMText(LANG_FORBIDDEN_PHRASE_ANNOUNCE_GM, playerName, message); // send report to GMs
                 LOG_INFO("module", "GlobalChat: Player {} got muted for {} for posting a forbidden message.", player->GetName(), secsToTimeString(ProfanityMute));
                 ChatHandler(session).PSendSysMessage("Your message contains a forbidden phrase. You have been muted for %s.", secsToTimeString(ProfanityMute));
 
@@ -788,7 +788,7 @@ void GlobalChatMgr::SendGlobalChat(WorldSession* session, const char* message, T
             }
             else
             {
-                sWorld->SendGMText(LANG_FORBIDDEN_PHRASE_ANNOUNCE_GM, playerName, message); // send report to GMs
+                ChatHandler(nullptr).SendGMText(LANG_FORBIDDEN_PHRASE_ANNOUNCE_GM, playerName, message); // send report to GMs
                 LOG_INFO("module", "GlobalChat: Player {} tried posting a forbidden message.", player->GetName());
                 ChatHandler(session).PSendSysMessage("Your message contains a forbidden phrase.");
             }
@@ -815,7 +815,7 @@ void GlobalChatMgr::SendGlobalChat(WorldSession* session, const char* message, T
         {
             if (URLMute > 0)
             {
-                sWorld->SendGMText(LANG_FORBIDDEN_URL_ANNOUNCE_GM, playerName, message); // send passive report to GMs
+                ChatHandler(nullptr).SendGMText(LANG_FORBIDDEN_URL_ANNOUNCE_GM, playerName, message); // send passive report to GMs
                 LOG_INFO("module", "GlobalChat: Player {} got muted for {} for posting a forbidden URL.", player->GetName(), secsToTimeString(URLMute));
                 ChatHandler(session).PSendSysMessage("Urls are not allowed. You have been muted for %s.", secsToTimeString(URLMute));
 
@@ -834,7 +834,7 @@ void GlobalChatMgr::SendGlobalChat(WorldSession* session, const char* message, T
             }
             else
             {
-                sWorld->SendGMText(LANG_FORBIDDEN_URL_ANNOUNCE_GM, playerName, message); // send passive report to GMs
+                ChatHandler(nullptr).SendGMText(LANG_FORBIDDEN_URL_ANNOUNCE_GM, playerName, message); // send passive report to GMs
                 LOG_INFO("module", "GlobalChat: Player {} tried posting a forbidden URL.", player->GetName());
                 ChatHandler(session).PSendSysMessage("Urls are not allowed.");
                 return;
