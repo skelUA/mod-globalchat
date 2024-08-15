@@ -661,7 +661,7 @@ void GlobalChatMgr::SendToPlayers(std::string chatMessage, Player* player, TeamI
             if (FactionSpecific && teamId != TEAM_NEUTRAL && itr->second->GetSecurity() > 0)
             {
                 message = gmChatPrefix + " " + chatMessage;
-                ChatHandler(nullptr).SendServerMessage(SERVER_MSG_STRING, message.c_str(), target);
+                sWorld->SendServerMessage(SERVER_MSG_STRING, message.c_str(), target);
                 continue;
             }
 
@@ -672,7 +672,7 @@ void GlobalChatMgr::SendToPlayers(std::string chatMessage, Player* player, TeamI
             if (!FactionSpecific || teamId == TEAM_NEUTRAL || teamId == target->GetTeamId())
             {
                 message = chatPrefix + " " + chatMessage;
-                ChatHandler(nullptr).SendServerMessage(SERVER_MSG_STRING, message.c_str(), target);
+                sWorld->SendServerMessage(SERVER_MSG_STRING, message.c_str(), target);
             }
         }
     }
