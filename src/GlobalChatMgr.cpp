@@ -735,7 +735,7 @@ void GlobalChatMgr::SendGlobalChat(WorldSession* session, const char* message, T
             muteLeft = playersChatData[guid].GetMuteTime() - GameTime::GetGameTime().count();
         }
 
-        ChatHandler(session).PSendSysMessage("|cffff0000You can't use the GlobalChat while muted.|r You need to wait another %s.", secsToTimeString(muteLeft));
+        ChatHandler(session).PSendSysMessage("|cffff0000You can't use the GlobalChat while muted.|r You need to wait another {}.", secsToTimeString(muteLeft));
         return;
     }
 
@@ -771,7 +771,7 @@ void GlobalChatMgr::SendGlobalChat(WorldSession* session, const char* message, T
             {
                 ChatHandler(nullptr).SendGMText(LANG_FORBIDDEN_PHRASE_ANNOUNCE_GM, playerName, message); // send report to GMs
                 LOG_INFO("module", "GlobalChat: Player {} got muted for {} for posting a forbidden message.", player->GetName(), secsToTimeString(ProfanityMute));
-                ChatHandler(session).PSendSysMessage("Your message contains a forbidden phrase. You have been muted for %s.", secsToTimeString(ProfanityMute));
+                ChatHandler(session).PSendSysMessage("Your message contains a forbidden phrase. You have been muted for {}.", secsToTimeString(ProfanityMute));
 
                 if (ProfanityMuteType >= 1)
                 {
@@ -817,7 +817,7 @@ void GlobalChatMgr::SendGlobalChat(WorldSession* session, const char* message, T
             {
                 ChatHandler(nullptr).SendGMText(LANG_FORBIDDEN_URL_ANNOUNCE_GM, playerName, message); // send passive report to GMs
                 LOG_INFO("module", "GlobalChat: Player {} got muted for {} for posting a forbidden URL.", player->GetName(), secsToTimeString(URLMute));
-                ChatHandler(session).PSendSysMessage("Urls are not allowed. You have been muted for %s.", secsToTimeString(URLMute));
+                ChatHandler(session).PSendSysMessage("Urls are not allowed. You have been muted for {}.", secsToTimeString(URLMute));
 
                 if (URLMuteType >= 1)
                 {
@@ -848,7 +848,7 @@ void GlobalChatMgr::SendGlobalChat(WorldSession* session, const char* message, T
     {
         std::string adStr = secsToTimeString(MinPlayTime - player->GetTotalPlayedTime());
         std::string minTime = secsToTimeString(MinPlayTime);
-        ChatHandler(player->GetSession()).SendNotification("You must have played at least %s to use the GlobalChat. %s remaining.", minTime.c_str(), adStr.c_str());
+        ChatHandler(player->GetSession()).SendNotification("You must have played at least {} to use the GlobalChat. {} remaining.", minTime.c_str(), adStr.c_str());
         return;
     }
 
