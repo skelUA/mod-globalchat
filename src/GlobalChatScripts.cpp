@@ -71,12 +71,12 @@ public:
         }
     }
 
-    void OnSave(Player* player)
+    void OnPlayerSave(Player* player)
     {
         sGlobalChatMgr->SavePlayerData(player);
     }
 
-    void OnChat(Player* player, uint32 /*type*/, uint32 lang, std::string& msg, Channel* channel)
+    void OnPlayerChat(Player* player, uint32 /*type*/, uint32 lang, std::string& msg, Channel* channel)
     {
         if (sGlobalChatMgr->JoinChannel && !sGlobalChatMgr->ChatName.empty() && lang != LANG_ADDON && !strcmp(toLowerCase(channel->GetName().c_str()).c_str(), toLowerCase(sGlobalChatMgr->ChatName.c_str()).c_str()))
         {
