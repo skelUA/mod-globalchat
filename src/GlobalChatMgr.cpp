@@ -22,6 +22,7 @@
 #include "World.h"
 #include "GlobalChatMgr.h"
 #include "WorldSession.h"
+#include "WorldSessionMgr.h"
 
 DBCStorage<ChatProfanityEntry> sChatProfanityStore(ChatProfanityEntryfmt);
 
