@@ -46,7 +46,7 @@ class GlobalChat_Player : public PlayerScript
 public:
     GlobalChat_Player() : PlayerScript("GlobalChat_Player") { }
 
-    void OnLogin(Player* player)
+    void OnPlayerLogin(Player* player)
     {
         if (sGlobalChatMgr->GlobalChatEnabled)
         {
