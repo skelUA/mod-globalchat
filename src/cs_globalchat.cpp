@@ -19,7 +19,8 @@
 #include "ScriptMgr.h"
 #include "GlobalChatMgr.h"
 #include <regex>
-
+#include "EventsHandler.h"
+#include "PlayerPenaltyEvent.h"
 using namespace Acore::ChatCommands;
 
 class globalchat_commandscript : public CommandScript
@@ -210,6 +211,17 @@ public:
         {
             ChatHandler(target->GetSession()).PSendSysMessage(LANG_GLOBALCHAT_MUTED_ANNOUNCE_SELF, secsToTimeString(durationSecs, true).c_str(), muteReasonStr.c_str());
             ChatHandler(nullptr).SendGMText(LANG_GLOBALCHAT_PLAYER_MUTED_ANNOUNCE_WORLD, playerName.c_str(), target->GetName().c_str(), secsToTimeString(durationSecs, true).c_str(), muteReasonStr.c_str());
+
+        }
+
+        if (sEventsHandler->IsEnabled())
+        {
+            sEventsHandler->Send(PlayerPenaltyEvent(
+            PENALTY_TYPE_GLOBAL_CHAT_MUTE,
+            playerName,
+            target->GetName(),
+            durationSecs,
+            muteReasonStr));
         }
 
         return true;
