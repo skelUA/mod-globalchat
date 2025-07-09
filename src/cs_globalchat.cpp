@@ -196,6 +196,16 @@ public:
                 ChatHandler(nullptr).SendGMText(LANG_GLOBALCHAT_PLAYER_BANNED_ANNOUNCE_WORLD, playerName.c_str(), target->GetName().c_str(), muteReasonStr.c_str());
             }
 
+            if (sEventsHandler->IsEnabled())
+            {
+                sEventsHandler->Send(PlayerPenaltyEvent(
+                    PENALTY_TYPE_GLOBAL_CHAT_MUTE,
+                    playerName,
+                    target->GetName(),
+                    0,
+                    muteReasonStr));
+            }
+
             return true;
         }
 
@@ -217,11 +227,11 @@ public:
         if (sEventsHandler->IsEnabled())
         {
             sEventsHandler->Send(PlayerPenaltyEvent(
-            PENALTY_TYPE_GLOBAL_CHAT_MUTE,
-            playerName,
-            target->GetName(),
-            durationSecs,
-            muteReasonStr));
+                PENALTY_TYPE_GLOBAL_CHAT_MUTE,
+                playerName,
+                target->GetName(),
+                durationSecs,
+                muteReasonStr));
         }
 
         return true;
