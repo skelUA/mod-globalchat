@@ -76,7 +76,7 @@ public:
         sGlobalChatMgr->SavePlayerData(player);
     }
 
-    void OnPlayerChat(Player* player, uint32 /*type*/, uint32 lang, std::string& msg, Channel* channel)
+    bool OnPlayerCanUseChat(Player* player, uint32 /*type*/, uint32 lang, std::string& msg, Channel* channel)
     {
         if (sGlobalChatMgr->JoinChannel && !sGlobalChatMgr->ChatName.empty() && lang != LANG_ADDON && !strcmp(toLowerCase(channel->GetName().c_str()).c_str(), toLowerCase(sGlobalChatMgr->ChatName.c_str()).c_str()))
         {
@@ -84,13 +84,16 @@ public:
             {
                 ChatHandler(player->GetSession()).PSendSysMessage("Please use |cff4CFF00.galliance|r or .|cff4CFF00ghorde|r for the GlobalChat as GM.");
                 msg = -1;
-                return;
+                return true;
             }
 
             sGlobalChatMgr->SendGlobalChat(player->GetSession(), msg.c_str());
             msg = -1;
         }
+
+        return true;
     }
+
 };
 
 void AddSC_GlobalChat()
