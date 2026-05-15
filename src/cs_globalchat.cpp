@@ -283,8 +283,7 @@ public:
         std::string phraseStr{ std::string_view(phrase) };
         CharacterDatabase.EscapeString(phraseStr);
 
-
-        QueryResult check = CharacterDatabase.Query("SELECT * FROM `globalchat_blacklist` WHERE `phrase` = '{}'", phrase);
+        QueryResult check = CharacterDatabase.Query("SELECT * FROM `globalchat_blacklist` WHERE `phrase` = '{}'", phraseStr);
         if (check)
         {
             handler->SendSysMessage("Phrase is already blacklisted.");
@@ -292,7 +291,7 @@ public:
             return true;
         }
 
-        CharacterDatabase.Query("INSERT INTO `globalchat_blacklist` VALUES ('{}')", phrase);
+        CharacterDatabase.Query("INSERT INTO `globalchat_blacklist` VALUES ('{}')", phraseStr);
         sGlobalChatMgr->ProfanityBlacklist[phrase.data()] = std::regex{phrase.data(), std::regex::icase | std::regex::optimize};
         handler->PSendSysMessage("Phrase '%s' is now blacklisted in the GlobalChat.", phrase);
         LOG_INFO("module", "GlobalChat: Phrase '{}' is now blacklisted.", phrase);
@@ -309,7 +308,7 @@ public:
         CharacterDatabase.EscapeString(phraseStr);
 
 
-        QueryResult check = CharacterDatabase.Query("SELECT * FROM `globalchat_blacklist` WHERE `phrase` = '{}'", phrase);
+        QueryResult check = CharacterDatabase.Query("SELECT * FROM `globalchat_blacklist` WHERE `phrase` = '{}'", phraseStr);
         if (!check)
         {
             handler->SendSysMessage("Phrase is not blacklisted.");
@@ -317,7 +316,7 @@ public:
             return true;
         }
 
-        CharacterDatabase.Query("DELETE FROM `globalchat_blacklist` WHERE `phrase` = '{}'", phrase);
+        CharacterDatabase.Query("DELETE FROM `globalchat_blacklist` WHERE `phrase` = '{}'", phraseStr);
         sGlobalChatMgr->ProfanityBlacklist.erase(phrase.data());
         handler->PSendSysMessage("Phrase '%s' is no longer blacklisted in the GlobalChat.", phrase);
         LOG_INFO("module", "GlobalChat: Phrase '{}' is no longer blacklisted.", phrase);
