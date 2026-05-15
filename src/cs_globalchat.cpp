@@ -280,6 +280,10 @@ public:
         if (phrase.empty())
             return false;
 
+        std::string phraseStr{ std::string_view(phrase) };
+        CharacterDatabase.EscapeString(phraseStr);
+
+
         QueryResult check = CharacterDatabase.Query("SELECT * FROM `globalchat_blacklist` WHERE `phrase` = '{}'", phrase);
         if (check)
         {
@@ -300,6 +304,10 @@ public:
     {
         if (phrase.empty())
             return false;
+
+        std::string phraseStr{ std::string_view(phrase) };
+        CharacterDatabase.EscapeString(phraseStr);
+
 
         QueryResult check = CharacterDatabase.Query("SELECT * FROM `globalchat_blacklist` WHERE `phrase` = '{}'", phrase);
         if (!check)
