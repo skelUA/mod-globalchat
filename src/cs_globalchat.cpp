@@ -16,6 +16,7 @@
  */
 
 #include "GameTime.h"
+#include "Player.h"
 #include "ScriptMgr.h"
 #include "GlobalChatMgr.h"
 #include <regex>
@@ -65,7 +66,11 @@ public:
 
         WorldSession* session = handler->GetSession();
 
-        if (sGlobalChatMgr->FactionSpecific && session->GetSecurity() > 0)
+        // Only force the faction commands on a GM who is actually in GM mode
+        // (or the console, which has no player). A GM playing normally - GM mode
+        // off - posts to their own faction's GlobalChat like any other player.
+        Player* gmPlayer = session ? session->GetPlayer() : nullptr;
+        if (sGlobalChatMgr->FactionSpecific && (!gmPlayer || gmPlayer->IsGameMaster()))
         {
             handler->SendSysMessage("Please use |cff4CFF00.galliance|r or .|cff4CFF00ghorde|r for the GlobalChat as GM.");
             handler->SetSentErrorMessage(true);

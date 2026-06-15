@@ -80,7 +80,9 @@ public:
     {
         if (sGlobalChatMgr->JoinChannel && !sGlobalChatMgr->ChatName.empty() && lang != LANG_ADDON && !strcmp(toLowerCase(channel->GetName().c_str()).c_str(), toLowerCase(sGlobalChatMgr->ChatName.c_str()).c_str()))
         {
-            if (sGlobalChatMgr->FactionSpecific && player->GetSession()->GetSecurity() > 0)
+            // A GM only needs the .galliance/.ghorde commands while in GM mode;
+            // with GM mode off they chat to their own faction like a normal player.
+            if (sGlobalChatMgr->FactionSpecific && player->IsGameMaster())
             {
                 ChatHandler(player->GetSession()).PSendSysMessage("Please use |cff4CFF00.galliance|r or .|cff4CFF00ghorde|r for the GlobalChat as GM.");
                 msg = -1;

@@ -660,7 +660,10 @@ void GlobalChatMgr::SendToPlayers(std::string chatMessage, Player* player, TeamI
 
         if (IsInChat(guid2))
         {
-            if (FactionSpecific && teamId != TEAM_NEUTRAL && itr->second->GetSecurity() > 0)
+            // GMs in GM mode monitor both factions' GlobalChat (shown with the
+            // faction tag). A GM with GM mode off is treated as a normal player
+            // below and only sees their own faction.
+            if (FactionSpecific && teamId != TEAM_NEUTRAL && target->IsGameMaster())
             {
                 message = gmChatPrefix + " " + chatMessage;
                 sWorldSessionMgr->SendServerMessage(SERVER_MSG_STRING, message.c_str(), target);

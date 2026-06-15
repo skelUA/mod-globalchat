@@ -105,7 +105,12 @@ GlobalChat.GM.Badge = 1
 
 #
 #    GlobalChat.FactionSpecific
-#        Description: Enable faction specific GlobalChat
+#        Description: Split the GlobalChat per faction. When enabled, Horde and
+#                     Alliance each get their own GlobalChat (players post to and
+#                     read only their own faction). A GM playing normally (GM mode
+#                     off) behaves like any other player; while in GM mode a GM
+#                     monitors both factions and posts with .galliance / .ghorde.
+#                     When disabled, a single shared GlobalChat is used.
 #        Default:     0	- (Disabled)
 #                     1	- (Enabled)
 #
